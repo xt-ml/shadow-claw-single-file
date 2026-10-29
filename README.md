@@ -58,13 +58,15 @@ Open your browser to `http://localhost:3000` (or `http://localhost:8080`) to beg
 
 ### 2. GitHub Pages Deployment
 
-When hosting under a subpath on GitHub Pages (e.g. `https://<user>.github.io/shadow-claw-single-file/`), run the base URL preparation script before committing or deploying:
+When hosting under a subpath on GitHub Pages (e.g. `https://xt-ml.github.io/shadow-claw-single-file/`), compile with the configured base path and copy the distribution file:
 
 ```bash
+# Build standalone single-file distribution with subpath base
 npm run build:base
-```
 
-This runs [`bin/build-base.mjs`](file:///packages/xt-ml/shadow-claw-single-file/bin/build-base.mjs) to update the HTML `<base href="/" />` to `<base href="/shadow-claw-single-file/" />`.
+# Copy compiled dist/public/index.html to repository root
+npm run build:copy
+```
 
 ---
 
@@ -191,8 +193,10 @@ shadow-claw-single-file/
 
 ## 🔗 Related Resources
 
+- **Live Deployment:** [ShadowClaw Single File](https://xt-ml.github.io/shadow-claw-single-file/)
+- **Organization Portal:** [xt-ml.github.io](https://xt-ml.github.io/)
 - **Main Repository:** [xt-ml/shadow-claw](https://github.com/xt-ml/shadow-claw)
-- **Live Deployment:** [ShadowClaw Web App](https://xt-ml.github.io/shadow-claw/)
+- **Official Web App:** [ShadowClaw](https://xt-ml.github.io/shadow-claw/)
 - **Starter Template:** [xt-ml/shadow-claw-template](https://github.com/xt-ml/shadow-claw-template)
 - **Knowledge Base:** [DeepWiki — ShadowClaw](https://deepwiki.com/xt-ml/shadow-claw)
 - **Agent Skills Discovery:** [Agent Skills Discovery RFC](https://github.com/cloudflare/agent-skills-discovery-rfc)
