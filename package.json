@@ -13,6 +13,6 @@
   "devDependencies": {
     "ncp": "^2.0.0",
     "serve": "^14.2.6",
-    "shadow-claw": "^1.59.4"
+    "shadow-claw": "^1.59.5"
   }
 }
