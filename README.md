@@ -166,8 +166,6 @@ When `--single-file` is passed to `shadow-claw build`, the compiler:
 
 ```txt
 shadow-claw-single-file/
-├── bin/
-│   └── build-base.mjs        # Helper to adjust <base href> for GitHub Pages hosting
 ├── 404.html                  # GitHub Pages SPA client redirect handler
 ├── index.html                # The standalone single-file ShadowClaw distribution (~64 KB)
 ├── package.json              # NPM scripts and local dev server dependency
