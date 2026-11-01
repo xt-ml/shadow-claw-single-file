@@ -146,6 +146,9 @@ This single-file distribution is compiled using the official [ShadowClaw CLI](ht
 # Compile a workspace into a standalone single-file distribution
 npx shadow-claw build --single-file
 
+# Enable standalone offline service worker caching
+npx shadow-claw build --single-file --service-worker
+
 # Specify a custom CDN host
 npx shadow-claw build --single-file --cdn "https://cdn.jsdelivr.net/npm/shadow-claw@1.59.4"
 
@@ -159,6 +162,7 @@ When `--single-file` is passed to `shadow-claw build`, the compiler:
 2. Discovers custom theme CSS and injects it into `<style id="shadow-claw-theme">`.
 3. Resolves the runtime CDN URL and configures the `<script type="importmap">` and `<meta name="shadow-claw-asset-base">` tags.
 4. Strips local build dependencies, producing a 100% self-contained HTML file.
+5. (Optional) When `--service-worker` is included, emits a companion `service-worker.js` and registers an update-checking lifecycle with user dialog prompts.
 
 ---
 
