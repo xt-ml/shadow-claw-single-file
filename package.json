@@ -8,10 +8,12 @@
     "build": "npx -y shadow-claw build --single-file",
     "build:base": "npm run build -- --base-path \"/shadow-claw-single-file/\"",
     "build:copy": "npx -y ncp dist/public/index.html ./index.html",
+    "format": "npx -y prettier -w .",
     "start": "npx serve -s ."
   },
   "devDependencies": {
     "ncp": "^2.0.0",
+    "prettier": "^3.9.10",
     "serve": "^14.2.6",
     "shadow-claw": "^1.61.1"
   }
