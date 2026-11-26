@@ -1,0 +1,6 @@
+{
+  "$schema": "https://schemas.agentskills.io/discovery/0.2.0/schema.json",
+  "name": "shadow-claw-single-file",
+  "description": "ShadowClaw in a single file",
+  "skills": []
+}
