@@ -15,7 +15,7 @@ It encapsulates the complete browser-native AI assistant client within a single 
 
 - **Single-File Footprint:** The entire user interface, runtime bootstrap, static pages, and memory scratchpads reside inside a standalone [`index.html`](file:///packages/xt-ml/shadow-claw-single-file/index.html).
 - **Zero Build to Run:** Open the file through any local or remote HTTP server; no bundler or pre-compiler needed for runtime operation.
-- **CDN-Backed Modular ESM Runtime:** Uses `<script type="importmap">` to resolve the core ShadowClaw web component library (`shadow-claw`) and assets directly from jsDelivr.
+- **CDN-Backed Modular ESM Runtime:** Resolves the core ShadowClaw web component library (`shadow-claw`) and assets primarily from unpkg with automatic runtime fallbacks to `esm.sh` and `cdn.jsdelivr.net`.
 - **Off-Main-Thread Orchestrator:** The reasoning state machine, tool invocation pipeline, and context-window management execute off the main thread inside a dedicated Web Worker.
 - **Local Sandbox & Privacy First:** Sandboxed virtual filesystem storage via the browser's Origin Private File System (OPFS) and IndexedDB.
 - **Flexible LLM Execution:**
@@ -80,7 +80,7 @@ graph TD
     HTML --> EmbeddedPages["Inline Pages &lt;script type='text/markdown'&gt;"]
     HTML --> DSDShell["Declarative Shadow DOM Shell &lt;shadow-claw&gt;"]
 
-    ImportMap --> CDN["jsDelivr CDN (shadow-claw ESM & CSS)"]
+    ImportMap --> CDN["CDN Runtime (unpkg → esm.sh → jsDelivr)"]
     CDN --> WebWorker["Dedicated Web Worker (Agent Orchestrator)"]
 
     WebWorker --> Storage["Browser OPFS & IndexedDB"]
@@ -90,16 +90,16 @@ graph TD
     EmbeddedPages -->|Seeded on Boot| Storage
 ```
 
-### 1. Modular ESM Import Map
+### 1. Modular ESM Import Map & CDN Fallback
 
-The document declares an import map pointing directly to the versioned, pre-bundled ESM release on jsDelivr:
+The document injects a runtime import map pointing to the versioned, pre-bundled ESM release on unpkg, falling back automatically to `esm.sh` and finally `cdn.jsdelivr.net`:
 
 ```html
 <script type="importmap">
   {
     "imports": {
-      "shadow-claw": "https://cdn.jsdelivr.net/npm/shadow-claw@1.59.4/dist/lib/index.js",
-      "shadow-claw/": "https://cdn.jsdelivr.net/npm/shadow-claw@1.59.4/"
+      "shadow-claw": "https://unpkg.com/shadow-claw@1.67.1/dist/lib/index.js",
+      "shadow-claw/": "https://unpkg.com/shadow-claw@1.67.1/"
     }
   }
 </script>
@@ -150,7 +150,7 @@ npx shadow-claw build --single-file
 npx shadow-claw build --single-file --service-worker
 
 # Specify a custom CDN host
-npx shadow-claw build --single-file --cdn "https://cdn.jsdelivr.net/npm/shadow-claw@1.59.4"
+npx shadow-claw build --single-file --cdn "https://unpkg.com/shadow-claw@1.67.1"
 
 # Set a custom base path prefix
 npx shadow-claw build --single-file --base-path "/shadow-claw-single-file/"
@@ -185,7 +185,7 @@ shadow-claw-single-file/
 | :--------------------- | :---------------------------- | :------------------------------------------------------------------- | :------------------------------------------------------------ |
 | **Artifact Structure** | 1 standalone HTML file        | Multi-file git repo with build workflow                              | Full dual-runtime package & CLI                               |
 | **Build Requirement**  | None (pre-compiled)           | GitHub Actions / `npx shadow-claw build`                             | Rolldown / npm scripts                                        |
-| **Asset Delivery**     | jsDelivr CDN                  | Bundled locally or self-hosted                                       | Local bundle / Express / Electron                             |
+| **Asset Delivery**     | unpkg / esm.sh / jsDelivr CDN | Bundled locally or self-hosted                                       | Local bundle / Express / Electron                             |
 | **Interactive UI**     | Full Web Components + Signals | Full Web Components + Signals                                        | Full Web Components + Signals                                 |
 | **OPFS & Storage**     | Browser OPFS + IndexedDB      | Browser OPFS + IndexedDB                                             | OPFS, IndexedDB, Node FS, SQLite                              |
 | **Headless CLI Agent** | ❌ (Client-only)              | ❌ (Client-only)                                                     | ✅ `shadow-claw agent`                                        |

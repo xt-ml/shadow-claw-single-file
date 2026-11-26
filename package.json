@@ -6,6 +6,7 @@
   "license": "AGPL-3.0",
   "scripts": {
     "build": "npx -y shadow-claw build --single-file",
+    "postbuild": "node scripts/apply-cdn-fallback.mjs",
     "build:base": "npm run build -- --base-path \"/shadow-claw-single-file/\"",
     "build:copy": "npx -y ncp dist/public/index.html ./index.html",
     "format": "npx -y prettier -w .",
